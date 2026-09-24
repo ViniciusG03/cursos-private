@@ -109,9 +109,3 @@ independentes, inclusive após sair e entrar novamente.
 
 Avaliar R2, processamento com ffmpeg/faststart, HLS e outras melhorias com base no
 uso real. Nenhum deles é requisito para publicar a primeira versão.
-
-## Próximo passo
-
-Criar `apps/api/src/main/resources/db/migration/V1__create_courses.sql` com a tabela
-de cursos: `id` UUID, `title` obrigatório, `description` opcional, `display_order` e
-`created_at` com fuso horário. Revisar a migração antes de adicionar módulos e aulas.
