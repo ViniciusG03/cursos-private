@@ -37,12 +37,12 @@ pela linha do tempo e confirmar que cada pessoa continua de onde parou.
 - [x] Configurar JPA, Flyway e teste de contexto com PostgreSQL via Testcontainers.
 - [x] Confirmar que a API inicia no perfil `local` e que `./mvnw test` passa.
 
-### 1. Catálogo
+### 1. Catálogo — concluído
 
-- [ ] Criar migrações Flyway para cursos, módulos e aulas, em passos revisáveis.
-- [ ] Definir ordem manual, rascunho/publicação e vínculos entre as tabelas.
-- [ ] Implementar entidades, repositórios e regras de organização do catálogo.
-- [ ] Testar as regras e validar o esquema com PostgreSQL nos testes.
+- [x] Criar migrações Flyway para cursos, módulos e aulas, em passos revisáveis.
+- [x] Definir ordem manual, rascunho/publicação e vínculos entre as tabelas.
+- [x] Implementar entidades, repositórios e regras de organização do catálogo.
+- [x] Testar as regras e validar o esquema com PostgreSQL nos testes.
 
 **Concluído quando:** é possível representar um curso com módulos e aulas ordenados,
 mantendo um curso incompleto como rascunho.
