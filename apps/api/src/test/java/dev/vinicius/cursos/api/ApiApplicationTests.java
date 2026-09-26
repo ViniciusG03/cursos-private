@@ -1,12 +1,9 @@
 package dev.vinicius.cursos.api;
 
-import dev.vinicius.cursos.api.support.PostgresTestcontainersConfiguration;
+import dev.vinicius.cursos.api.support.LibraryIntegrationTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 
-@SpringBootTest
-@Import(PostgresTestcontainersConfiguration.class)
+@LibraryIntegrationTest
 class ApiApplicationTests {
 
 	@Test

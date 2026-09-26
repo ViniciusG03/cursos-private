@@ -47,22 +47,27 @@ pela linha do tempo e confirmar que cada pessoa continua de onde parou.
 **Concluído quando:** é possível representar um curso com módulos e aulas ordenados,
 mantendo um curso incompleto como rascunho.
 
-### 2. Contas, convites e autorização
+### 2. Contas, convites e autorização — concluído
 
-- [ ] Modelar administrador, usuários e convites com prazo de validade e uso único.
-- [ ] Permitir que o convidado defina sua própria senha; armazenar apenas o hash.
-- [ ] Implementar login, logout e recuperação de acesso.
-- [ ] Proteger operações administrativas e o acesso aos cursos publicados.
-- [ ] Integrar o envio de convites por e-mail.
+- [x] Modelar administrador, usuários e convites com prazo de validade e uso único.
+- [x] Permitir que o convidado defina sua própria senha; armazenar apenas o hash.
+- [x] Implementar login, logout e recuperação de acesso.
+- [x] Proteger operações administrativas e o acesso aos cursos publicados.
+- [x] Integrar o envio de convites por e-mail.
+
+Contrato HTTP, variáveis de ambiente e bootstrap do administrador em
+[`docs/acesso-api.md`](docs/acesso-api.md).
 
 **Concluído quando:** não existe cadastro público, convidados conseguem entrar e
 somente o administrador consegue alterar o catálogo.
 
-### 3. Telas básicas
+### 3. Telas básicas — concluído
 
-- [ ] Construir login e navegação pelos cursos, módulos e aulas.
-- [ ] Criar telas administrativas para organizar e publicar o catálogo.
-- [ ] Integrar o frontend à API e tratar estados de carregamento e erro.
+- [x] Construir login e navegação pelos cursos, módulos e aulas.
+- [x] Criar telas administrativas para organizar e publicar o catálogo.
+- [x] Integrar o frontend à API e tratar estados de carregamento e erro.
+
+SPA, comandos e fallback exigido no Nginx em [`apps/web/README.md`](apps/web/README.md).
 
 **Concluído quando:** o administrador organiza um curso pelo navegador e um usuário
 convidado vê apenas os cursos publicados.

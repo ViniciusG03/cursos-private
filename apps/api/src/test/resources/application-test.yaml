@@ -1,0 +1,14 @@
+# Nunca usado para enviar: os testes trocam o OutboundMailSender pela fake RecordingMailSender.
+spring.mail.host: localhost
+
+library.access:
+  public-base-url: https://biblioteca.test
+  mail-from: biblioteca@biblioteca.test
+  attempt-limit:
+    max-attempts-per-client: 20
+    max-attempts-per-identity: 5
+    max-attempts-per-identity-all-clients: 8
+  # O worker real roda em segundo plano nos testes; varredura curta para eles não esperarem 5 s.
+  password-reset-dispatch:
+    poll-interval: 100ms
+    max-attempts: 3

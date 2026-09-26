@@ -3,4 +3,60 @@ spring:
     name: api
 
   jpa.hibernate.ddl-auto: validate
+  # Sem Open Session in View: entidades lazy não escapam das transações dos serviços.
+  jpa.open-in-view: false
 
+  # Host, porta e credenciais SMTP vêm do ambiente (SPRING_MAIL_HOST, SPRING_MAIL_PORT,
+  # SPRING_MAIL_USERNAME, SPRING_MAIL_PASSWORD). Sem host a aplicação não sobe: não há envio silencioso.
+  mail:
+    properties:
+      "[mail.smtp.connectiontimeout]": 5000
+      "[mail.smtp.timeout]": 5000
+      "[mail.smtp.writetimeout]": 5000
+      "[mail.smtp.auth]": ${LIBRARY_MAIL_SMTP_AUTH:true}
+      "[mail.smtp.starttls.enable]": ${LIBRARY_MAIL_SMTP_STARTTLS:true}
+      "[mail.smtp.starttls.required]": ${LIBRARY_MAIL_SMTP_STARTTLS:true}
+
+# Logs em JSON (Logstash): os campos estruturados (invitationId, adminId, purpose...) só aparecem assim;
+# no formato texto padrão o Spring Boot descarta os key-values do SLF4J.
+logging.structured.format.console: logstash
+
+# SMTP fora do ar não derruba a API: a falha fica registrada no convite (delivery_status) e nos logs.
+management.health.mail.enabled: false
+
+server:
+  # Atrás do Nginx: o Tomcat só aceita X-Forwarded-* de proxies em redes internas.
+  forward-headers-strategy: native
+  servlet:
+    session:
+      timeout: 8h
+      tracking-modes: cookie
+      cookie:
+        name: LIBRARY_SESSION
+        http-only: true
+        secure: true
+        same-site: lax
+
+# Nomes de variáveis explícitos: o relaxed binding do Spring remove hífens (LIBRARY_ACCESS_PUBLICBASEURL),
+# o que é fácil de errar no deploy. Base pública e remetente não têm default: sem eles a aplicação não sobe.
+library:
+  access:
+    public-base-url: ${LIBRARY_PUBLIC_BASE_URL:}
+    mail-from: ${LIBRARY_MAIL_FROM:}
+    attempt-limit:
+      window: ${LIBRARY_ATTEMPT_WINDOW:15m}
+      max-attempts-per-client: ${LIBRARY_ATTEMPT_MAX_PER_CLIENT:30}
+      max-attempts-per-identity: ${LIBRARY_ATTEMPT_MAX_PER_IDENTITY:10}
+      max-attempts-per-identity-all-clients: ${LIBRARY_ATTEMPT_MAX_PER_IDENTITY_ALL_CLIENTS:100}
+      cleanup-interval: 10m
+    # Fila durável da recuperação de acesso (V8): varredura, tentativas de envio e retenção dos concluídos.
+    password-reset-dispatch:
+      poll-interval: ${LIBRARY_PASSWORD_RESET_POLL_INTERVAL:5s}
+      max-attempts: ${LIBRARY_PASSWORD_RESET_MAX_ATTEMPTS:5}
+      retry-backoff: ${LIBRARY_PASSWORD_RESET_RETRY_BACKOFF:1m}
+      retention: ${LIBRARY_PASSWORD_RESET_RETENTION:30d}
+  # Bootstrap explícito do primeiro ADMIN; desligado por padrão e sem e-mail ou senha padrão.
+  admin-bootstrap:
+    enabled: ${LIBRARY_ADMIN_BOOTSTRAP_ENABLED:false}
+    email: ${LIBRARY_ADMIN_BOOTSTRAP_EMAIL:}
+    password: ${LIBRARY_ADMIN_BOOTSTRAP_PASSWORD:}

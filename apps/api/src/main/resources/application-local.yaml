@@ -1,1 +1,17 @@
 spring.docker.compose.file: ../../infra/compose.dev.yaml
+
+# Mailpit (infra/compose.dev.yaml): SMTP em localhost:1025, caixa de entrada em http://localhost:8025.
+spring.mail:
+  host: localhost
+  port: 1025
+  properties:
+    "[mail.smtp.auth]": false
+    "[mail.smtp.starttls.enable]": false
+    "[mail.smtp.starttls.required]": false
+
+# Somente no perfil local o cookie de sessão aceita HTTP; produção mantém Secure.
+server.servlet.session.cookie.secure: false
+
+library.access:
+  public-base-url: http://localhost:5173
+  mail-from: biblioteca@localhost

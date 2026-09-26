@@ -1,12 +1,10 @@
 package dev.vinicius.cursos.api.catalog;
 
-import dev.vinicius.cursos.api.support.PostgresTestcontainersConfiguration;
+import dev.vinicius.cursos.api.support.LibraryIntegrationTest;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -14,8 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * cada serviço confirma a própria transação e as leituras abaixo vão direto ao banco via JDBC, o que
  * prova persistência após recarga e ausência de atualização parcial.
  */
-@SpringBootTest
-@Import(PostgresTestcontainersConfiguration.class)
+@LibraryIntegrationTest
 public abstract class CatalogIntegrationTest {
 
 	@Autowired
